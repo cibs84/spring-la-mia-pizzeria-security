@@ -7,8 +7,12 @@
 <th:block th:replace="~{fragments :: head}"></th:block>
 </head>
 <body>
+	<!-- HEADER -->
+	<header th:replace="~{fragments :: header}"></header>
+	
+	<!-- MAIN -->
 	<main class="container">
-		<h1 class="text-center my-5">Pizze</h1>
+		<h1 class="text-center mb-5">Pizze</h1>
 		
 		<!-- Cerca per nome pizza -->
 		<form action="pizze" class="row my-5">
@@ -20,7 +24,7 @@
 			</div>
 			
 			<!-- Inserisci una nuova pizza -->
-			<div class="col-auto px-2">
+			<div class="col-auto px-2" sec:authorize="hasAuthority('ADMIN')">
 				<a href="pizze/create" class="btn btn-success col-auto">Inserisci una nuova pizza</a>
 			</div>
 		</form>
@@ -53,11 +57,13 @@
 		      			<i class="fa-solid fa-sheet-plastic"></i>
 		      		</a>
 			      	<!-- Modifica -->
-					<a th:href="@{/pizze/edit/{id} (id=${pizza.id})}" class="btn btn-success">
+					<a th:href="@{/pizze/edit/{id} (id=${pizza.id})}" class="btn btn-success"
+					   sec:authorize="hasAuthority('ADMIN')">
 		      			<i class="fa-regular fa-pen-to-square"></i>
 		      		</a>
 		      		<!-- Elimina -->
-			      	<form action="#" th:action="@{/pizze/delete/{id}(id=${pizza.id})}" method="post" class="d-inline-block">
+			      	<form action="#" th:action="@{/pizze/delete/{id}(id=${pizza.id})}" 
+			      	method="post" class="d-inline-block" sec:authorize="hasAuthority('ADMIN')">
 			      		<button type="submit" id="submitButton" class="btn btn-danger">
 			      			<i class="fa fa-trash-alt"></i>
 			      		</button>
